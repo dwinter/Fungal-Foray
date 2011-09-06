@@ -31,5 +31,23 @@ get those
     387
     
 387 records from Pine or Nothofagus... let's save those a file first
+The idea of subclassing SeqRecord for the Fungal record was to be able
+to use SeqIO...
+  
+    >>> SeqIO.write(filtered, 'filtered.gb', 'genbank') 
+    387
+
+Magic! 
+I'm to make a tree from these, so make the names smaller (readable) and
+point them towards a host
+    
+    >>> to_rename = filtered[:]
+    >>> for record in to_rename:
+    ...   record.description = record.host
+    >>> SeqIO.write(to_rename, 'filtered_host.gb', 'genbank')
+    387
+     
+
+    
 
 

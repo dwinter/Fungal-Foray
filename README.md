@@ -1,4 +1,4 @@
-#And online Fungal Foray
+#An online Fungal Foray
 
 This is documentation of my attempts to do a better job of using Genbank to
 explore the diversity of fungi in different forests in New Zealand [than I 

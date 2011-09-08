@@ -68,7 +68,7 @@ they show about the distribution of their hosts
 And then I did a whole lot of tooling around in `R` and using `ape` and
 the file `scripts/plot.r` which gave me this:
 
-![Smaverage Tree](/tree.png)
+![Smaverage Tree](https://github.com/dwinter/Fungal-Foray/raw/master/tree.png)
 
 Which was... OK. But I reckon I can do better with iTOL so I wrote CSV files to upload there. 
 This one [looks pretty cool](http://itol.embl.de/external.cgi?tree=119224961033146313154072750&restore_saved=1&cT=4689)and it does look like each community is quite distinct.

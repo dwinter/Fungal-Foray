@@ -1,4 +1,4 @@
-*And online Fungal Foray
+#And online Fungal Foray
 
 This is documentation of my attempts to do a better job of using Genbank to
 explore the diversity of fungi in different forests in New Zealand. 
@@ -6,7 +6,7 @@ explore the diversity of fungi in different forests in New Zealand.
 We are starting of with a file `fungal.gb` which contains sequence records
 and trying to get something interesting form that
 
-** First glance (what hosts are in there?)
+##First glance (what hosts are in there?)
 
     >>>from Bio import SeqIO
     >>>from scripts.Fungi import Fungi
@@ -17,7 +17,7 @@ and trying to get something interesting form that
 
 No concerns about having too few hosts then. 
 
-** Are Nothofagus and Pine communities different?
+##Are Nothofagus and Pine communities different?
 
 I'm most interested in Nothofagus 
 and Pine forests, and only those with ITS sequences (alignable). So lets
@@ -60,6 +60,11 @@ they show about the distribution of their hosts
     $ mv filtered_host.fasta trees/
     $ muscle -in filtered_renamed.fasta -out filtered_renamed_ali.fasta
 
-    
+And then I did a whole lot of tooling around in `R` and using `ape` and
+the file `scripts/plot.r` which me this
 
+![Smaverage Tree](tree.png)
 
+Which was... OK. But I reckon I can do better with iTOL so I wrote
+CSV files to upload there. This one [looks pretty cool](http://itol.embl.de/external.cgi?tree=119224961033146313154072750&restore_saved=1&cT=4689)
+and it does look like each community is quite distinct.

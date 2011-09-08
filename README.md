@@ -65,8 +65,15 @@ they show about the distribution of their hosts
     $ mv filtered_host.fasta trees/
     $ muscle -in filtered_renamed.fasta -out filtered_renamed_ali.fasta
 
-And then I did a whole lot of tooling around in `R` and using `ape` and
-the file `scripts/plot.r` which gave me this:
+This allignment is _not_ final, it includes lots of dubious gappy regions
+but it also includes a lot of taxonomically diverse fungi and I'm not 
+aiming to represent the One True Tree of Fungi, so much as use a tree
+to plot the hosts (the way `muscle` works the alignment will be better
+within closely related sequences that between them, which is the more
+interesting bits). 
+
+So I went on an made a NJ tree and tooledaround in `R` and using `ape` and
+(the file `scripts/plot.r`) which gave me this:
 
 ![Smaverage Tree](https://github.com/dwinter/Fungal-Foray/raw/master/tree.png)
 

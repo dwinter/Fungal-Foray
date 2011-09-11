@@ -15,28 +15,22 @@ get_species <- function(s) {
 
 #This is really stupid, but don't enough R to
 #do it better...
-assign_colour <- function(s) {
-  if (s == "Pinus   radiata"){
-    return('#A52A2A')
-    }
-  else if (s == "Nothofagus   menziesii"){
-    return('#006D2C')
-  }
-    else if (s == "Nothofagus   fusca"){
-    return('#31A354')
-  }
-    else if (s == "Nothofagus   solandri"){
-    return('#74C476')
-  }
-    else if (s == "Nothofagus   truncata"){
-    return('#BAE4B3')
-  }
-    else if (s == "Nothofagus   sp."){
-    return('#EDF8E9')
-  }
-    else{ print('say wha?')}
-}
 
+# I do ;-)
+
+my_colours <- c(
+
+  `Pinus   radiata` = '#A52A2A',
+  `Nothofagus   menziesii` = '#006D2C',
+  `Nothofagus   fusca` = '#31A354',
+  `Nothofagus   solandri` = '#74C476',
+  `Nothofagus   truncata` = '#BAE4B3',
+  `Nothofagus   sp.` = '#EDF8E9'
+)
+
+assign_colour <- function(s) return(my_colours[s])
+
+# nb (I'd also use rgb() rather than direct hex values)
 
 d <- read.dna('filtered_renamed_ali.fasta', 'fasta')
 tr <- nj(dist.dna(d, 'K81'))

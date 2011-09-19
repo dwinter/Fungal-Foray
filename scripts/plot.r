@@ -7,7 +7,7 @@ library(ape)
 #Read in the aligned sequences, make a tree and write it out
 d <- read.dna('../trees/filtered_renamed_ali.fasta', 'fasta')
 tr <- nj(dist.dna(d, 'K81'))
-write.tree('filtered_nj.tre')
+write.tree(tr, 'filtered_nj.tre')
 
 
 #I'm going to use iTol to plot that tree, so need csv files assigning

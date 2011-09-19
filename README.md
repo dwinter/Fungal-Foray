@@ -79,3 +79,24 @@ So I went on an made a NJ tree and tooledaround in `R` and using `ape` and
 
 Which was... OK. But I reckon I can do better with iTOL so I wrote CSV files to upload there. 
 This one [looks pretty cool](http://itol.embl.de/external.cgi?tree=119224961033146313154072750&restore_saved=1&cT=4689)and it does look like each community is quite distinct.
+
+##More Trees
+
+Ok, so that's a proof of concept. Can we see similar patterns when we include more trees. A new function in /scripts makes slecting a little clearer
+
+    >>> from scripts.Fungi import match_record
+    >>> spp = [r for r in f_records if match_record(r, 'host', ['Pinus', 'Pine', 'Nothofagus', 'Kunzea'])]
+    >>> on_target = [r for r in spp if r.its and r.country == 'New Zealand']
+    
+Which gets a broader sample
+    
+    >>> from collections import Counter
+    >>> Counter([r.host for r in on_target])
+    Counter({'Nothofagus menziesii': 114, 'Pinus radiata': 86, 'Nothofagus fusca': 29, 'Nothofagus solandri': 28, 'Kunzea ericoides': 22, 'Nothofagus sp.': 14,    'Nothofagus': 11, 'Kunzea ericoides var. microflora': 4, 'Nothofagus truncata': 4, 'Pinus sp.': 3, 'Nothofagus solandri var. cliffortioides': 1, 'Pinus nigra': 1, 'Leptospermum scoparium': 1, 'Pinus radiata after Sirex noctilio attack': 1, 'Nothofagus meniesii': 1, 'Pinus': 1, 'Pinus pinaster': 1}
+    >>> for r in on_targer:
+    ...     r.description = r.host
+    ... 
+    >>> SeqIO.write(on_target, 'seqs/broader_renamed.fasta', 'fasta')
+    322
+
+

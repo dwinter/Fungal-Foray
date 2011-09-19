@@ -47,4 +47,15 @@ class FungalRecord(SeqRecord):
       return True
     else:
       return False
-  
+ 
+def match_record(record, attr, value):
+  """ Tests if attributes of an object matchs a giveb value """
+  if isinstance(value, list):
+    #lots of values, so return True any of them are there
+    for v in value:
+      if v in getattr(record, attr):
+        return True
+    #will only make it here if True was returned above    
+    return False
+  else: 
+    return value in getattr(record, attr) 

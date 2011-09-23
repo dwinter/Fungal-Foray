@@ -25,19 +25,19 @@ class FungalRecord(SeqRecord):
     """ Find the 'source' feature, used to set host and country below """
     for feature in self.features:
       if feature.type == 'source':
-        return feature
+        return feature.qualifiers
   
   @property
   def host(self):
     try:
-      return self._source.qualifiers['host'][0]
+      return self._source['host'][0]
     except KeyError:
       return ''
 
   @property
   def country(self):
     try:
-      return self._source.qualifiers['country'][0]
+      return self._source['country'][0]
     except KeyError:
       return ''
 
@@ -48,8 +48,17 @@ class FungalRecord(SeqRecord):
     else:
       return False
  
+ @property
+  def tax_id(self):
+    try:
+      for ref in self._source['db_xref']:
+        if 'taxon:' in ref: 
+          return ref.split(':')[1]
+    except KeyError:
+      return ''
+ 
 def match_record(record, attr, value):
-  """ Tests if attributes of an object matchs a giveb value """
+  """ Tests if attributes of an object matchs a given fvalue """
   if isinstance(value, list):
     #lots of values, so return True any of them are there
     for v in value:

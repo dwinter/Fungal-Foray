@@ -82,18 +82,19 @@ This one [looks pretty cool](http://itol.embl.de/external.cgi?tree=1192249610331
 
 ##More Trees
 
-Ok, so that's a proof of concept. Can we see similar patterns when we include more trees. A new function in /scripts makes slecting a little clearer
+Ok, so that's a proof of concept. Can we see similar patterns when we include more host trees. A new function in /scripts makes slecting a little clearer
 
     >>> from scripts.Fungi import match_record
     >>> spp = [r for r in f_records if match_record(r, 'host', ['Pinus', 'Pine', 'Nothofagus', 'Kunzea'])]
-    >>> on_target = [r for r in spp if r.its and r.country == 'New Zealand']
+    >>> on_target = [r for r in spp if (r.ITS) and (r.country == 'New Zealand')]
     
 Which gets a broader sample
     
     >>> from collections import Counter
     >>> Counter([r.host for r in on_target])
     Counter({'Nothofagus menziesii': 114, 'Pinus radiata': 86, 'Nothofagus fusca': 29, 'Nothofagus solandri': 28, 'Kunzea ericoides': 22, 'Nothofagus sp.': 14,    'Nothofagus': 11, 'Kunzea ericoides var. microflora': 4, 'Nothofagus truncata': 4, 'Pinus sp.': 3, 'Nothofagus solandri var. cliffortioides': 1, 'Pinus nigra': 1, 'Leptospermum scoparium': 1, 'Pinus radiata after Sirex noctilio attack': 1, 'Nothofagus meniesii': 1, 'Pinus': 1, 'Pinus pinaster': 1}
-    >>> for r in on_targer:
+    >>> for r in on_target:
+    ...     r.id = r.tax_id
     ...     r.description = r.host
     ... 
     >>> SeqIO.write(on_target, 'seqs/broader_renamed.fasta', 'fasta')

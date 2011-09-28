@@ -85,7 +85,8 @@ This one [looks pretty cool](http://itol.embl.de/external.cgi?tree=1192249610331
 Ok, so that's a proof of concept. Can we see similar patterns when we include more host trees. A new function in /scripts makes slecting a little clearer
 
     >>> from scripts.Fungi import match_record
-    >>> spp = [r for r in f_records if match_record(r, 'host', ['Pinus', 'Pine', 'Nothofagus', 'Kunzea'])]
+    >>> f_records = (FungalRecord(r) for r in SeqIO.parse('raw_seqs/fungal.gb', 'gb'))
+    >>> spp = [r for r in f_records if match_record(r, 'host', ['Pinus', 'Pine', 'Nothofagus', 'Kunzea', 'Leptospermum'])]
     >>> on_target = [r for r in spp if (r.ITS) and (r.country == 'New Zealand')]
     
 Which gets a broader sample
@@ -98,6 +99,26 @@ Which gets a broader sample
     ...     r.description = r.host
     ... 
     >>> SeqIO.write(on_target, 'seqs/broader_renamed.fasta', 'fasta')
-    322
+    234
+
+So let's plot this tree!
+
+    1> source("scripts/utils.r")
+    1> d <- read.dna('trees/broader_renamed_ali.fasta', 'fasta')
+    1> tr <- nj(dist.dna(d, "K81"))
+    1> taxonomy <- make_iTol(tr)
+    1> write.tree(tr, "broarder.tre")
+    1> write.csv(taxonomy[,c(1,4,2)], "trees/genus.csv", row.names=F, quote=F)
+
+That much can go off to iTOL to make a pretty plot.
+
+I wanted a way of quantifiying how 'exlusive' parasites are with regards their host genus. So I err, invented a statistic. My "exclusivity" is given for a whole tree and is the propotrion of all clades in a given tree. A permutation test decides if its higher than you'd expect if their was no host specificity. It is implimented in `exclusivity` in `script/utils.r`.
+    
+    1> tr$tip.label <- taxonomy$genus
+    1> svg("exlusvity_permutation.svg")
+    1> exclusivity(tr, 1000)
+    1> dev.off()
+
+
 
 

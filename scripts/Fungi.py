@@ -48,7 +48,7 @@ class FungalRecord(SeqRecord):
     else:
       return False
  
- @property
+  @property
   def tax_id(self):
     try:
       for ref in self._source['db_xref']:
